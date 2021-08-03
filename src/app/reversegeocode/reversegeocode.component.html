@@ -1,0 +1,73 @@
+<body class="bg-gray-100 font-family-karla flex">
+    <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
+		<div class="p-6">
+			<a class="text-white text-3xl font-semibold uppercase hover:text-gray-300">LocationIQ</a>
+		</div>
+		<nav class="text-white text-base font-semibold pt-3">
+			<a routerLink="/forwardgeocode"  class="flex items-center text-white py-4 pl-6 nav-item"><i class="fa fa-map-marker mr-3"></i> Forward Geocode</a> 
+            <a class="flex items-center active-nav-link text-white py-4 pl-6 nav-item"><i class="fa fa-map-marker mr-3"></i> Reverse Geocode</a>
+            <a routerLink="/disconnect" (click)="disconnect()" class="flex items-center text-white py-4 pl-6 nav-item"><i class="fa fa-map-marker mr-3"></i>Disconnect</a>
+		</nav>
+	</aside>
+
+    <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
+        <main class="w-full flex-grow p-6">
+            <h1>Reverse Geocode</h1>
+            <div class="mt-6 ml-6 mr-6">
+                <form #reversequery="ngForm" (ngSubmit)="reversegeocode(reversequery.value, $event.submitter.id)" class="space-y-4 text-gray-700">
+                    <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0">
+                        <div class="w-full px-2">
+                            <label for="query">Query</label>
+                            <input [(ngModel)]="query" class="w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline" placeholder="Query" type="text" name="query" id="query" />
+                            <label class="ml-10 mr-4" for="selecttable">Select table</label>
+                            <input [(ngModel)]="selecttable" class="w-1/4 h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline mt-4" placeholder="Select table name" type="text" name="selecttable" id="selecttable" />
+                            <label class="ml-10 mr-4" for="inserttable">Insert table</label>
+                            <input [(ngModel)]="inserttable" class="w-1/4 h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline mt-4" placeholder="Insert table name" type="text" name="inserttable" id="inserttable" />
+                        </div>
+                    </div>
+                    <div class="p-2 border-b border-gray-200">
+                        <button type="submit" name="fetch" id="fetch" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-4 py-2 px-4 rounded">Fetch records</button>
+                        <button *ngIf='inserttable && query' type="submit" name="validate" id="validate" class="bg-blue-500 hover:bg-blue-700 text-white font-bold ml-4 mt-4 py-2 px-4 rounded">Validate</button>
+                    </div>
+                </form>
+                <div *ngIf='validateResponse' class="w-1/4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 round">
+                    {{ validateResponse }}
+                 </div>
+            </div>
+            <form>
+                <div class="w-full mt-12">
+                    <div class="bg-blue overflow-auto">
+                        <table class="text-left w-full border-collapse">
+                            <thead class="bg-blue-500 text-white">
+                                <tr>        
+                                    <th *ngFor="let col of columns" class="py-2 px-6 bg-blue-lightest font-bold uppercase text-base text-grey-dark border-b border-grey-light">
+                                        {{ col }}
+                                    </th>                             
+                                </tr>
+                            </thead>
+                            <tbody>               
+                                <tr *ngFor="let res of response 
+                                | paginate : { id:'pagination', itemsPerPage:10, currentPage:page, totalItems:totalRecords}">           
+                                    <td *ngFor="let col of columns" class="py-4 px-6 text-sm border-b border-grey-light">
+                                    {{ res[col] }}
+                                    </td>
+                                </tr>                                
+                            </tbody>
+                        </table>
+                        <div *ngIf='response'>
+                            <pagination-controls 
+                            id="pagination"                         
+                            (pageChange)="page = $event">
+                            </pagination-controls>  
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </main>
+        <footer class="w-full bg-white text-right p-4">
+            LocationIQ
+        </footer>
+    </div>
+  
+
+</body>

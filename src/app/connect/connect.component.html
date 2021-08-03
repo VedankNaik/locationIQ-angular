@@ -1,0 +1,35 @@
+<div class="container w-full max-w-xs mx-auto mt-8 px-1 font-sans">
+    <form #connectForm="ngForm" (ngSubmit)="connect(connectForm.value)" class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+      <h3 class="title text-xl mb-8 mx-auto text-center font-bold text-blue-700">Connect to Server</h3>
+      <div class="mb-4 grid gap-6">
+        <div>
+          <label for="Server" class="block text-gray-500 font-medium text-sm mb-2">Server</label>
+          <input name="Server" id="Server"  type="text"type="text" placeholder="" [ngModel]="connection.Server"
+            class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" />
+        </div>
+        <div>
+          <label for="Database" class="block text-gray-500 font-medium text-sm mb-2">Database</label>
+          <input name="Database" id="Database" type="text" placeholder="" [ngModel]="connection.Database"
+            class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" />
+        </div>
+        <div>
+          <label for="Username" class="block text-gray-500 font-medium text-sm mb-2">User Name</label>
+          <input name="Username" id="Username" type="text" placeholder="" [ngModel]="connection.Username" 
+            class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" />
+        </div>
+        <div>
+          <label for="Password" class="block text-gray-500 font-medium text-sm mb-2">Password</label>
+          <input name="Password" id="Password" type="password" placeholder="" [ngModel]="connection.Password"
+            class="appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" />
+        </div>
+        <div class="flex items-center justify-between">
+          <button type="submit" class="shadow bg-blue-500 hover:bg-blue-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-4">
+            Connect
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  
+  <router-outlet></router-outlet>

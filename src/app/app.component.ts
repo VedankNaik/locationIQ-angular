@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConnectComponent } from './connect/connect.component';
 
 @Component({
   selector: 'app-root',
